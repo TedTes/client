@@ -5,13 +5,14 @@ import {Col,Row} from 'react-bootstrap';
 import Header from './Header';
 import {Route,Redirect,Switch} from 'react-router-dom';
 import ProjectEdit from './ProjectEdit'
+import AddProject from './AddProject';
 import About from './About.js'
 // import AddProject from './AddProject';
 import BugList from './BugList';
 import {LinkContainer} from 'react-router-bootstrap';
 
 
-export default function Page(){
+export default function Page(props){
 
     const [data,setData]= useState([]);
     useEffect(()=>{
@@ -37,13 +38,14 @@ export default function Page(){
   loadData();
      },[])
  return(<div>
-     <Header/>
+     <Header {...props}/>
    <Row >
         <Col>
             <Switch>
              <Route exact={true} path={'/home'} render={(routeProps)=><ProjectList data={data}/>} />
              <Route  path="/home/:proname" render={(routeProps)=><BugList {...routeProps}/>}/>
              <Route path="/edit/:id" render={(routeProps)=><ProjectEdit data={data} {...routeProps}/>}/>
+             <Route path='/addproject' render={(routeProps)=><AddProject data={data} {...routeProps}/>}/>
              <Redirect to={"/home"}/>
            </Switch>
             </Col> 

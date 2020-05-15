@@ -9,10 +9,10 @@ export default function App() {
 
 const[state,setState]=useState();
    
-  return(<div className="App">
+  return(<div className="app">
     <Router>
     <Switch>
-    <Route path="/" component={Page}/>
+    <Route path="/" render={(routeProps)=><Page {...routeProps}/>}/>
    <Redirect to="/"/>
    </Switch>
     </Router>

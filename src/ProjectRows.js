@@ -3,7 +3,6 @@ import {Route} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap';
 
 export default function ProjectsRows(props){
-  const name=props.project.name;
   const handleClick=(e)=>{
     if(e.stopPropagation)e.stopPropagation();
   }

@@ -29,14 +29,16 @@ e.preventDefault();
     await graphqlFetch(query,{bug});
     alert("succefully updated")
     }
- 
+ const handleCancel=()=>{
+   setOpen(false);
+ }
 return(<div>
  <div className="addbug">
   {/* <Button  onClick={() => setOpen(!open)} >Add Bugs</Button> */}
   <Button variant="outline-primary" onClick={() => setOpen(!open)}>
   Add Bugs <Badge variant="light">+</Badge>
 </Button>
-  <Collapse in={open} style={{marginTop:"-1px",border:".6px solid blue",padding:"20px" }} >
+  <Collapse in={open} style={{marginTop:"-1px",border:".6px solid blue",padding:"20px"}} >
   <Form name="addBug">
   <Form.Group>
     <Form.Label>Name</Form.Label>
@@ -58,7 +60,7 @@ return(<div>
     <Form.Control as="textarea" rows="3" name="description" />
   </Form.Group>
   <Button onClick={handleInput}>Add</Button>&nbsp;
-  <Button>Cancel</Button>
+  <Button onClick={handleCancel}>Cancel</Button>
 </Form>
 
 </Collapse>

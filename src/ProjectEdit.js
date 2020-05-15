@@ -34,15 +34,15 @@ const[flag,setFlag]=useState(0)
         .filter((data)=>Number(data.id)===Number(props.match.params.id))
         .map((dta,index)=><Form name="projectEdit" key={index}>
         <Form.Group >
-          <Form.Label>ProjectName</Form.Label>
+          <Form.Label style={{color:"black",fontWeight:"bold",fontSize:".8em"}}>ProjectName</Form.Label>
           <Form.Control type="text" name="projectname" defaultValue={dta.name}/>
         </Form.Group>
         <Form.Group >
-          <Form.Label>LeadName</Form.Label>
+          <Form.Label style={{color:"black",fontWeight:"bold",fontSize:".8em"}}>Project Manager</Form.Label>
           <Form.Control type="text" name="leadname" defaultValue={dta.leadName} />
         </Form.Group>
         <Form.Group >
-          <Form.Label>Created</Form.Label>
+          <Form.Label style={{color:"black",fontWeight:"bold",fontSize:".8em"}}>Created Date</Form.Label>
           <Form.Control type="text" name="created" defaultValue={dta.created} />
         </Form.Group>
         <Button onClick={handleCancel} variant="secondary" type="submit">

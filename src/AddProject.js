@@ -1,26 +1,21 @@
 import graphQLFetch from './graphqlFetch';
 import React,{useState} from 'react';
+import Alert from './Alert';
 import {FormGroup,FormLabel,Form,ButtonToolbar,Modal,Button,FormControl} from 'react-bootstrap'
 
-export default function AddProject(){
-let id;
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = (e) => setShow(true);
-    const  handleSubmit=async ()=>{
+export default function AddProject(props){
+   const[flag,setFlag]=useState(0);
+    const handleCancel = () => props.history.push('/home');
+    const  handleSave=async ()=>{
         
         const form=document.forms.addProject;
-    //   const counter=`query getCounter{
-    //       getCounter
-    //   }`
-    // const res=await graphQLFetch(counter);
       const id=Math.floor(Math.random()*10000)
 
       const project={
            id:id,
            name:form.name.value,
-           leadName:form.leadName.value,
-          
+           leadName:form.projmanager.value,
+           created:form.created.value
        }
         const query=`mutation addProject($project:ProjectInputs!){
             addProject(project:$project){
@@ -28,35 +23,34 @@ let id;
             }
         }`
 const data=await graphQLFetch(query,{project})
+if(data)setFlag(1);
 
-setShow(false);
     }
 
   return (<div>
-    <Modal style={{opacity:1}} show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-        <Modal.Title >Add Project</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        <Form name="addProject">
-        <FormGroup>
-        <FormLabel>Name:</FormLabel>
-        <FormControl name="name" autoFocus/>
-        </FormGroup>
-        <FormGroup>
-        <FormLabel>LeadProject:</FormLabel>
-        <FormControl name="leadName" />
-        </FormGroup>
-        </Form>
-     </Modal.Body>
-     <Modal.Footer>
-    <ButtonToolbar>
-    <Button type="submit" onClick={handleSubmit}>Submit</Button>
-    &nbsp;
-    <Button onClick={handleClose}>Cancel</Button>
-    </ButtonToolbar>
-   </Modal.Footer>
-      </Modal>
+   <Form className="add-project" name="addProject">
+  <Form.Group >
+    <Form.Label>Project Name</Form.Label>
+    <Form.Control type="text" name="name"/>
+  </Form.Group>
+  <Form.Group >
+    <Form.Label>Project Manager</Form.Label>
+    <Form.Control type="text" name="projmanager" />
+  </Form.Group>
+  <Form.Group >
+    <Form.Label>Created Date</Form.Label>
+    <Form.Control type="text" name="created" value={new Date()}/>
+  </Form.Group>
+  <Form.Group >
+  </Form.Group>
+  <Button onClick={handleCancel} variant="secondary" type="submit">
+          Cancel
+        </Button>&nbsp;
+        <Button variant="primary" type="submit" onClick={handleSave}>
+          Save
+        </Button>
+</Form>
+{flag===1?<Alert show={true} message={"successfully saved"} header={"Success"}/>:''}
     </div>
   );
 }

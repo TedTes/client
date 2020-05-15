@@ -7,14 +7,15 @@ import Header from './Header';
 
 export default function ProjectList(props){
 return(<div className="projectslist container">
+    <Row className="company-projects"><Col>Company Projects</Col></Row>
           <Row>
             <Col>
             <Table striped hover>
-            <thead>
+            <thead >
                 <tr>
                 <th>Projects</th>
-                <th>Lead</th>
-                <th>created</th>
+                <th>Project Manager</th>
+                <th>Created Date</th>
                 </tr>
             </thead>
      <tbody>

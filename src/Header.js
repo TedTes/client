@@ -2,14 +2,13 @@ import React,{useState, useEffect} from 'react';
 import {Col,Container,Row,Collapse} from 'react-bootstrap';
 import AddProject from './AddProject';
 import './styles.css'
-export default function Header(){
-  // const[slide,setSlide]=useState(false);
-  // const[className,setClassName]=useState(0)
+export default function Header(props){
 
-// useEffect(()=>{
-//   setClassName(slide==0?"7%":"15%")}
-//   ,[slide,className])
 
+const handleClick=()=>{
+props.history.push('/addproject')
+
+}
     return(
     <div className="header">
    <ul className="list-menu">
@@ -17,6 +16,8 @@ export default function Header(){
    <li><a href="">Dashboard </a></li>
    <li><a href="">People</a></li>
    <li><a href="">About</a></li>
+   <li><button onClick={handleClick}>Add Project</button></li>
+   <li>Login</li>
    </ul>
    </div>
  
