@@ -52,6 +52,6 @@ const[flag,setFlag]=useState(0)
           Save
         </Button>
       </Form>)}
-      {flag===1?<Alert show={true} message={"successfully updated"} header={"Success"}/>:''}
+    <div className="alert-position"> {flag===1?<Alert show={true} message={"successfully updated!"} header={"Success"}/>:''}</div> 
     </div>
 }

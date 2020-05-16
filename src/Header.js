@@ -1,31 +1,24 @@
 import React,{useState, useEffect} from 'react';
-import {Col,Container,Row,Collapse} from 'react-bootstrap';
+import {Col,Container,Row,Collapse,Button,Badge} from 'react-bootstrap';
 import AddProject from './AddProject';
+import Accounts from './Accounts'
 import './styles.css'
 export default function Header(props){
 
-
-const handleClick=()=>{
-props.history.push('/addproject')
-
-}
     return(
     <div className="header">
    <ul className="list-menu">
    <li ><h2  className="buggy">Buggy</h2></li> 
-   <li><a href="">Dashboard </a></li>
-   <li><a href="">People</a></li>
-   <li><a href="">About</a></li>
-   <li><button onClick={handleClick}>Add Project</button></li>
-   <li>Login</li>
+   <li><a href="/home">Dashboard </a></li>
+   <li><a href="/members">Members</a></li>
+   <li><a href="/about">About</a></li>
    </ul>
+   <div className="account-button"><a href="/login">Login</a>/&nbsp;
+  <a href="/register">Register</a></div>
    </div>
  
 )
 }
-
-
-
 
 
 

@@ -6,7 +6,10 @@ import Header from './Header';
 import {Route,Redirect,Switch} from 'react-router-dom';
 import ProjectEdit from './ProjectEdit'
 import AddProject from './AddProject';
-import About from './About.js'
+import Members from './Members';
+import About from './About.js';
+import Login from './Login';
+import Register from './Register';
 // import AddProject from './AddProject';
 import BugList from './BugList';
 import {LinkContainer} from 'react-router-bootstrap';
@@ -42,10 +45,14 @@ export default function Page(props){
    <Row >
         <Col>
             <Switch>
-             <Route exact={true} path={'/home'} render={(routeProps)=><ProjectList data={data}/>} />
+             <Route exact={true} path={'/home'} render={(routeProps)=><ProjectList data={data} {...routeProps}/>} />
+             <Route path={'/members'} render={(routeProps)=><Members data={data}/>} />
+             <Route  path={'/about'} render={(routeProps)=><About {...routeProps} />} />
              <Route  path="/home/:proname" render={(routeProps)=><BugList {...routeProps}/>}/>
              <Route path="/edit/:id" render={(routeProps)=><ProjectEdit data={data} {...routeProps}/>}/>
              <Route path='/addproject' render={(routeProps)=><AddProject data={data} {...routeProps}/>}/>
+             <Route path='/login' render={(routeProps)=><Login {...routeProps}/>}/>
+             <Route path='/register' render={(routeProps)=><Register {...routeProps}/>}/>
              <Redirect to={"/home"}/>
            </Switch>
             </Col> 

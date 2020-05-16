@@ -6,8 +6,7 @@ import AddBug from './AddBug';
 export default function BugList(props){
 const[data,setData]=useState([]);
 const proName=props.match.params.proname
-console.log("from buglist")
-console.log(proName)
+// console.log(props.location.search.substr(1));
 const handleEdit=(p)=>{
  console.log(p)
 }
@@ -58,7 +57,5 @@ return<div className="container buglist">
   </tbody>
 </Table>
   </div>
-
-    </div>
-
+  </div>
 }

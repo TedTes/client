@@ -12,7 +12,7 @@ export default function ProjectsRows(props){
 
 return <LinkContainer to={`/home/${props.project.name}?${props.project.id}`}>
  
- <tr key={props.project.key}>
+ <tr className="project-row" key={props.project.key}>
         <th>{props.project.name}</th>
         <th>{props.project.leadName}</th>
         <th>{props.project.created.toDateString()}</th>

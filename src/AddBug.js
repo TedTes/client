@@ -1,12 +1,12 @@
 import React ,{useState} from 'react';
 import {Form,Collapse,Button,Accordion,Card,Badge} from 'react-bootstrap'
-import Header from './Header';
-import AddProject from './AddProject'
 import graphqlFetch from './graphqlFetch';
+import Alert from './Alert'
 import './styles.css'
 
 export default function AddBug(props){
     const [open,setOpen]=useState(false)
+    const[flag,setFlag]=useState(0)
   // const projectName=props.location.search.slice(1);
     const handleInput=async(e)=>{
 e.preventDefault();
@@ -26,8 +26,12 @@ e.preventDefault();
       description:form.description.value,
       created:created
     }
-    await graphqlFetch(query,{bug});
-    alert("succefully updated")
+   const data= await graphqlFetch(query,{bug});
+   if(data){
+     setFlag(1);
+     form.reset();
+     setOpen(false);
+   }
     }
  const handleCancel=()=>{
    setOpen(false);
@@ -65,7 +69,7 @@ return(<div>
 
 </Collapse>
   </div>
-  
+  <div className="alert-position">{flag===1?<Alert show={true} message={"successfully saved!"} header={"Success"}/>:''}</div>
     </div>
 )
 }
