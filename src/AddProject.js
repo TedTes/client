@@ -6,25 +6,25 @@ import {FormGroup,FormLabel,Form,ButtonToolbar,Modal,Button,FormControl} from 'r
 export default function AddProject(props){
    const[flag,setFlag]=useState(0);
     const handleCancel = () => props.history.push('/home');
-    const  handleSave=async ()=>{
-        
+    const  handleSave=async (e)=>{
+        e.preventDefault();
         const form=document.forms.addProject;
-      const id=Math.floor(Math.random()*10000)
 
       const project={
-           id:id,
            name:form.name.value,
            leadName:form.projmanager.value,
            created:form.created.value
        }
         const query=`mutation addProject($project:ProjectInputs!){
-            addProject(project:$project){
-                _id
-            }
+            addProject(project:$project)
         }`
 const data=await graphQLFetch(query,{project})
-if(data)setFlag(1);
+if(data){
+ setFlag(1);
+//  window.location.reload(false);
+ setTimeout(()=>props.history.push('/home'),2001);
 
+}
     }
 
   return (<div>

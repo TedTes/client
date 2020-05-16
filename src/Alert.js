@@ -12,7 +12,7 @@ export default function Alert(props) {
     return (
       <Row className="alert">
         <Col xs={6}>
-          <Toast onClose={() => setShow(false)} show={show} delay={1000} autohide>
+          <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
             <Toast.Header>
               <img
                 src="holder.js/20x20?text=%20"

@@ -1,15 +1,21 @@
 import React,{useState,useEffect} from 'react';
-import {Table,Button, Nav} from 'react-bootstrap';
+import {Table,Button, Nav,Row,Col} from 'react-bootstrap';
 import graphQLFetch from './graphqlFetch';
 import AddBug from './AddBug';
+import {LinkContainer} from 'react-router-bootstrap';
+
 
 export default function BugList(props){
 const[data,setData]=useState([]);
 const proName=props.match.params.proname
 // console.log(props.location.search.substr(1));
-const handleEdit=(p)=>{
- console.log(p)
+const handleDelete=(e)=>{
+  if(e.stopPropagation)e.stopPropagation();
 }
+const handleEdit=(e)=>{
+  if(e.stopPropagation)e.stopPropagation();
+}
+
 useEffect(()=>{
     async function loadBugs(){
     const query=`query bugsList($proName:String!){
@@ -27,15 +33,19 @@ const state=res.bugsList.bugs;
 if(res)
 {
     setData([...state]);
+  
 }
 }
 loadBugs();
 },[])
 return<div className="container buglist">
-        
-  <AddBug projectName={proName} />
-  <div>
-  <Table responsive striped bordered hover>
+  <Row>
+  <Col><AddBug projectName={proName} /></Col>
+    </Row>  
+    <Row>
+<Col>
+<div>
+  <Table striped >
   <thead>
     <tr>
       <th>Name</th>
@@ -45,17 +55,19 @@ return<div className="container buglist">
       <th></th>
     </tr>
   </thead>
-  <tbody hover>
+  <tbody >
+    {  console.log(data)}
    {data.map((p,index)=><tr key={index}>
       <td>{p.name}</td>
       <td>{p.status}</td>
-      <td>{p.created.toDateString()}</td>
-      <td >{p.description}</td>
-      <td><a href="/" onClick={handleEdit(p)}><i className="fa fa-edit"></i></a>&nbsp; &nbsp;
-      <a href="/"><i className="fa fa-trash"></i></a></td>
+      <td style={{width:"170px"}}>{p.created.toDateString()}</td>
+      <td  style={{width:"450px"}}>{p.description}</td>
+      <td style={{width:"70px"}} ><a onClick={handleEdit} href='/bugedit'><i className="fa  fa-edit"></i></a>&nbsp; &nbsp;
+      <a onClick={handleDelete} href="/"><i className="fa  fa-trash"></i></a></td>
     </tr>)}  
   </tbody>
 </Table>
   </div>
+</Col></Row>    
   </div>
 }

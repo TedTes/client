@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import graphQLFetch from './graphqlFetch';
 import Alert from './Alert'
 import {Form,Collapse,Button,Accordion,Card,Badge} from 'react-bootstrap';
-export default function ProjectEdit(props){
+export default function BugEdit(props){
 const[show,setShow]=useState(false);
 const[flag,setFlag]=useState(0)
     const handleCancel=()=>{
@@ -18,16 +18,14 @@ const[flag,setFlag]=useState(0)
             name:form.projectname.value,
             leadName:form.leadname.value,
              }
-         const query=`mutation updateProject($project:ProjectInputs!){
-             updateProject(project:$project)
+         const query=`mutation updateProject($bug:BugInputs!){
+             updateProject(bug:$bug)
          }`
 
       const data=await graphQLFetch(query,{project})
      if(data){
-       console.log("from edit")
-       console.log(data)
     setFlag(1)
-     setTimeout(()=>props.history.push('/home'),2001);
+     setTimeout(()=>props.history.push('/home'),1001);
          }
     }
     return<div className="project-editor">
@@ -36,15 +34,15 @@ const[flag,setFlag]=useState(0)
         .filter((data)=>Number(data.id)===Number(props.match.params.id))
         .map((dta,index)=><Form name="projectEdit" key={index}>
         <Form.Group >
-          <Form.Label style={{color:"black",fontWeight:"bold",fontSize:".8em"}}>ProjectName</Form.Label>
+          <Form.Label style={{color:"black",fontWeight:"bold",fontSize:".8em"}}>Name</Form.Label>
           <Form.Control type="text" name="projectname" defaultValue={dta.name}/>
         </Form.Group>
         <Form.Group >
-          <Form.Label style={{color:"black",fontWeight:"bold",fontSize:".8em"}}>Project Manager</Form.Label>
+          <Form.Label style={{color:"black",fontWeight:"bold",fontSize:".8em"}}>Status</Form.Label>
           <Form.Control type="text" name="leadname" defaultValue={dta.leadName} />
         </Form.Group>
         <Form.Group >
-          <Form.Label style={{color:"black",fontWeight:"bold",fontSize:".8em"}}>Created Date</Form.Label>
+          <Form.Label style={{color:"black",fontWeight:"bold",fontSize:".8em"}}>Description</Form.Label>
           <Form.Control type="text" name="created" defaultValue={dta.created} />
         </Form.Group>
         <Button onClick={handleCancel} variant="secondary" type="submit">

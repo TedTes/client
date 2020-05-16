@@ -21,10 +21,13 @@ props.history.push('/home');
         <Form.Control type="password" placeholder="Password" />
       </Form.Group>
     </Form.Row>
-        
+    <Form.Group>
+      <Form.Label>Role</Form.Label>
+      <Form.Control type="text" placeholder="front end developer" />
+    </Form.Group> 
     <Form.Group>
       <Form.Label>Photo</Form.Label>
-      <Form.Control type="image" placeholder="browse" />
+      <Form.Control type="file" placeholder="browse" />
     </Form.Group>
   
     <Form.Group controlId="formGridAddress1">

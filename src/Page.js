@@ -10,9 +10,9 @@ import Members from './Members';
 import About from './About.js';
 import Login from './Login';
 import Register from './Register';
-// import AddProject from './AddProject';
 import BugList from './BugList';
-import {LinkContainer} from 'react-router-bootstrap';
+import BugEdit from './BugEdit'
+import DeleteProject from './DeleteProject';
 
 
 export default function Page(props){
@@ -40,19 +40,29 @@ export default function Page(props){
         
   loadData();
      },[])
+     const deletedSignal=(e)=>{
+         e.preventDefault();
+         console.log("hey")
+         setData(data=>[...data,data]);
+        }
+      
+     
  return(<div>
      <Header {...props}/>
    <Row >
         <Col>
             <Switch>
-             <Route exact={true} path={'/home'} render={(routeProps)=><ProjectList data={data} {...routeProps}/>} />
+             <Route exact={true} path={'/home'} render={(routeProps)=><ProjectList deletedSignal={deletedSignal} data={data} {...routeProps}/>} />
              <Route path={'/members'} render={(routeProps)=><Members data={data}/>} />
              <Route  path={'/about'} render={(routeProps)=><About {...routeProps} />} />
              <Route  path="/home/:proname" render={(routeProps)=><BugList {...routeProps}/>}/>
              <Route path="/edit/:id" render={(routeProps)=><ProjectEdit data={data} {...routeProps}/>}/>
+             <Route path="/delete/:id" render={(routeProps)=><DeleteProject data={data} {...routeProps}/>}/>
              <Route path='/addproject' render={(routeProps)=><AddProject data={data} {...routeProps}/>}/>
              <Route path='/login' render={(routeProps)=><Login {...routeProps}/>}/>
              <Route path='/register' render={(routeProps)=><Register {...routeProps}/>}/>
+             <Route path='/bugedit' render={(routeProps)=><BugEdit {...routeProps}/>}/>
+            
              <Redirect to={"/home"}/>
            </Switch>
             </Col> 
