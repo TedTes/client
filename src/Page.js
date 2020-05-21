@@ -12,57 +12,54 @@ import Login from './Login';
 import Register from './Register';
 import BugList from './BugList';
 import BugEdit from './BugEdit'
-import DeleteProject from './DeleteProject';
-
-
+async function loadData(){
+    const query=`query queryProjects{
+          queryProjects{
+              projects{
+                  id
+                  name
+                  leadName
+                  created
+          }
+          }
+          }`
+       
+         const res=await graphQLFetch(query)
+         return res;
+        }
 export default function Page(props){
-
     const [data,setData]= useState([]);
-    useEffect(()=>{
-        async function loadData(){
-          const query=`query queryProjects{
-                queryProjects{
-                    projects{
-                        id
-                        name
-                        leadName
-                        created
-                }
-                }
-                }`
-             
-               const res=await graphQLFetch(query)
-         if(res){
-                setData([...data,...res.queryProjects.projects])
-            }
-            
-        }
-        
-  loadData();
-     },[])
-     const deletedSignal=(e)=>{
-         e.preventDefault();
-         console.log("hey")
-         setData(data=>[...data,data]);
-        }
-      
-     
+    const [bugData,setBugData]=useState({})
+ const triggerCall=async()=>{
+   const res=await loadData();
+    if(res){
+        setData([...res.queryProjects.projects])
+    }
+ }
+    useEffect(()=>triggerCall(),[]);
+
+    const reloadData=async()=>triggerCall();
+    const deleteData=async()=>triggerCall();
+
+     const useBugData=(bgdata)=>{
+        console.log("from bgdata")
+        console.log(bgdata)
+         setBugData(()=>bgdata)
+     }
  return(<div>
      <Header {...props}/>
    <Row >
         <Col>
             <Switch>
-             <Route exact={true} path={'/home'} render={(routeProps)=><ProjectList deletedSignal={deletedSignal} data={data} {...routeProps}/>} />
+             <Route exact={true} path={'/home'} render={(routeProps)=><ProjectList deleteData={deleteData} data={data} {...routeProps}/>} />
              <Route path={'/members'} render={(routeProps)=><Members data={data}/>} />
              <Route  path={'/about'} render={(routeProps)=><About {...routeProps} />} />
-             <Route  path="/home/:proname" render={(routeProps)=><BugList {...routeProps}/>}/>
+             <Route  path="/home/:proname" render={(routeProps)=><BugList useBugData={useBugData} {...routeProps}/>}/>
              <Route path="/edit/:id" render={(routeProps)=><ProjectEdit data={data} {...routeProps}/>}/>
-             <Route path="/delete/:id" render={(routeProps)=><DeleteProject data={data} {...routeProps}/>}/>
-             <Route path='/addproject' render={(routeProps)=><AddProject data={data} {...routeProps}/>}/>
+             <Route path='/addproject' render={(routeProps)=><AddProject reloadData={reloadData} data={data} {...routeProps}/>}/>
              <Route path='/login' render={(routeProps)=><Login {...routeProps}/>}/>
              <Route path='/register' render={(routeProps)=><Register {...routeProps}/>}/>
-             <Route path='/bugedit' render={(routeProps)=><BugEdit {...routeProps}/>}/>
-            
+             <Route path='/bugedit/:proname' render={(routeProps)=><BugEdit  bugData={bugData} {...routeProps}/>}/>
              <Redirect to={"/home"}/>
            </Switch>
             </Col> 

@@ -7,7 +7,6 @@ import Header from './Header';
 import DeleteProject from './DeleteProject';
 import './styles.css';
 export default function ProjectList(props){
-    console.log(props.location.search.slice(1));
     const handleClick=()=>{
         props.history.push('/addproject')
         
@@ -32,7 +31,7 @@ return(<div className="projectslist container">
         </Table>
             </Col>
         </Row>
-       { props.location.search.slice(1)?<DeleteProject id={props.location.search.slice(1)} deletedSignal={props.deletedSignal} {...props}/>:''}
+       { props.location.search.slice(1)?<DeleteProject id={props.location.search.slice(1)} deleteData={props.deleteData}  {...props}/>:''}
      </div>)
 }
   

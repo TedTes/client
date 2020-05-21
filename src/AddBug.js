@@ -9,7 +9,7 @@ export default function AddBug(props){
     const[flag,setFlag]=useState(0)
   // const projectName=props.location.search.slice(1);
     const handleInput=async(e)=>{
-e.preventDefault();
+// e.preventDefault();
       const query=`mutation addBug($bug:BugInputs){
         addBug(bug:$bug){
          bugs{

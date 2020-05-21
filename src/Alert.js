@@ -10,15 +10,10 @@ export default function Alert(props) {
       }
   },[])
     return (
-      <Row className="alert">
+      <Row style={{width:"1000px"}}>
         <Col xs={6}>
-          <Toast onClose={() => setShow(false)} show={show} delay={2000} autohide>
+          <Toast onClose={() => setShow(false)} show={show} delay={1300} autohide>
             <Toast.Header>
-              <img
-                src="holder.js/20x20?text=%20"
-                className="rounded mr-2"
-                alt=""
-              />
               <strong style={{background:"#c3f0ca",display:"block"}} className="mr-auto">{props.header}</strong>
             </Toast.Header>
             <Toast.Body>{props.message}</Toast.Body>

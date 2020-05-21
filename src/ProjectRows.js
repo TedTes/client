@@ -13,7 +13,7 @@ export default function ProjectsRows(props){
     if(e.stopPropagation)e.stopPropagation();
   }
 
-return <LinkContainer to={`/home/${props.project.name}?${props.project.id}`}>
+return <LinkContainer to={`/home/${props.project.name}`}>
  <tr className="project-row" key={props.project.key}>
       <th>{props.project.name}</th>
         <th>{props.project.leadName}</th>

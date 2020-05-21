@@ -10,7 +10,7 @@ const[flag,setFlag]=useState(0)
     }
     const handleSave=async(e)=>{
         const form=document.forms.projectEdit;
-        e.preventDefault();
+        // e.preventDefault();
         let id=Number(props.match.params.id);
      
          const project={
@@ -24,10 +24,8 @@ const[flag,setFlag]=useState(0)
 
       const data=await graphQLFetch(query,{project})
      if(data){
-       console.log("from edit")
-       console.log(data)
     setFlag(1)
-     setTimeout(()=>props.history.push('/home'),2001);
+     setTimeout(()=>props.history.push('/home'),1301);
          }
     }
     return<div className="project-editor">

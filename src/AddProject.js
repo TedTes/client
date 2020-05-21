@@ -7,7 +7,7 @@ export default function AddProject(props){
    const[flag,setFlag]=useState(0);
     const handleCancel = () => props.history.push('/home');
     const  handleSave=async (e)=>{
-        e.preventDefault();
+        // e.preventDefault();
         const form=document.forms.addProject;
 
       const project={
@@ -21,13 +21,13 @@ export default function AddProject(props){
 const data=await graphQLFetch(query,{project})
 if(data){
  setFlag(1);
-//  window.location.reload(false);
- setTimeout(()=>props.history.push('/home'),2001);
+ setTimeout(()=>props.history.push('/home'),1301);
+ props.reloadData();
 
 }
     }
 
-  return (<div>
+  return<div>
    <Form className="add-project" name="addProject">
   <Form.Group >
     <Form.Label>Project Name</Form.Label>
@@ -50,7 +50,6 @@ if(data){
           Save
         </Button>
 </Form>
-{flag===1?<Alert show={true} message={"successfully saved"} header={"Success"}/>:''}
+<div className="alert-position">{flag===1?<Alert  show={true} message={"successfully saved"} header={"Success"}/>:''}</div>
     </div>
-  );
 }
